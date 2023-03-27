@@ -85,7 +85,11 @@ public class TicTacToe {
 
             int position = Integer.parseInt(input.nextLine());
 
+            if (board[position] != X_MARKER && board[position] != O_MARKER) {
+                board[position] = X_MARKER;
+            }
 
+            userOutput.displayBoard(board);
         }
 
         // 2. Display the board
