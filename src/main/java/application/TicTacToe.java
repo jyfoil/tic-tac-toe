@@ -53,7 +53,7 @@ public class TicTacToe {
             }
         }
 
-        return false;   
+        return false;
     }
 
     private List<String> availablePositions() {
@@ -66,6 +66,26 @@ public class TicTacToe {
             availablePositions.add(String.valueOf(board[i]));
         }
         return availablePositions;
+    }
+
+    private void placePlayerMark(int position) {
+        if (board[position] != X_MARKER && board[position] != O_MARKER) {
+            board[position] = X_MARKER;
+        }
+    }
+
+    private boolean hasPlayerWon() {
+
+        int[][] allWinningPositions = new int[][]{winningPosition0, winningPosition1, winningPosition2,
+                winningPosition3, winningPosition4, winningPosition5, winningPosition6, winningPosition7};
+
+        for (int[] eachWinningPositionArr : allWinningPositions) {
+            if (board[eachWinningPositionArr[0]] == X_MARKER && board[eachWinningPositionArr[1]] == X_MARKER && board[eachWinningPositionArr[2]] == X_MARKER) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void run() {
@@ -92,13 +112,15 @@ public class TicTacToe {
             System.out.println("The available positions are " + String.join(", ", openSpaces));
 
             int position = Integer.parseInt(input.nextLine());
-
-            if (board[position] != X_MARKER && board[position] != O_MARKER) {
-                board[position] = X_MARKER;
-            }
+            placePlayerMark(position);
 
             userOutput.displayBoard(board);
 
+            if (hasPlayerWon()) {
+                System.out.println("Congratulations you have won the game of Tic Tac Toe!");
+                System.out.println("Thanks for playing");
+                return;
+            }
 
         }
 
