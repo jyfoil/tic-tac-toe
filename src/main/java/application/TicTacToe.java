@@ -68,7 +68,24 @@ public class TicTacToe {
             if (!positionsAvailable) {
                 break;
             }
-            
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("Select an available position of the board: ");
+
+            List<String> availablePositions = new ArrayList<>();
+            for (int i = 0; i < board.length; i++) {
+                if (board[i] == X_MARKER || board[i] == O_MARKER) {
+                    continue;
+                }
+
+                availablePositions.add(String.valueOf(board[i]));
+            }
+
+            System.out.println("The available positions are " + String.join(", ", availablePositions));
+
+            int position = Integer.parseInt(input.nextLine());
+
+
         }
 
         // 2. Display the board
