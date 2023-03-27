@@ -53,8 +53,19 @@ public class TicTacToe {
             }
         }
 
-        return false;
+        return false;   
+    }
 
+    private List<String> availablePositions() {
+        List<String> availablePositions = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] == X_MARKER || board[i] == O_MARKER) {
+                continue;
+            }
+
+            availablePositions.add(String.valueOf(board[i]));
+        }
+        return availablePositions;
     }
 
     public void run() {
@@ -76,16 +87,9 @@ public class TicTacToe {
             Scanner input = new Scanner(System.in);
             System.out.println("Select an available position of the board: ");
 
-            List<String> availablePositions = new ArrayList<>();
-            for (int i = 0; i < board.length; i++) {
-                if (board[i] == X_MARKER || board[i] == O_MARKER) {
-                    continue;
-                }
+            List<String> openSpaces = availablePositions();
 
-                availablePositions.add(String.valueOf(board[i]));
-            }
-
-            System.out.println("The available positions are " + String.join(", ", availablePositions));
+            System.out.println("The available positions are " + String.join(", ", openSpaces));
 
             int position = Integer.parseInt(input.nextLine());
 
