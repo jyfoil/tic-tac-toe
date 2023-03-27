@@ -45,6 +45,18 @@ public class TicTacToe {
         return board;
     }
 
+    private boolean hasAvailablePositions() {
+
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] != X_MARKER && board[i] != O_MARKER) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
     public void run() {
         this.board = initializeBoard();
 
@@ -56,16 +68,8 @@ public class TicTacToe {
 
 
         while (true) {
-            boolean positionsAvailable = false;
 
-            for (int i = 0; i < board.length; i++) {
-                if (board[i] != X_MARKER && board[i] != O_MARKER) {
-                    positionsAvailable = true;
-                    break;
-                }
-            }
-
-            if (!positionsAvailable) {
+            if (!hasAvailablePositions()) {
                 break;
             }
 
@@ -90,6 +94,8 @@ public class TicTacToe {
             }
 
             userOutput.displayBoard(board);
+
+
         }
 
         // 2. Display the board
