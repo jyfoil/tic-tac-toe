@@ -3,6 +3,11 @@ package application;
 import ui.UserInput;
 import ui.UserOutput;
 
+import javax.management.openmbean.OpenMBeanAttributeInfo;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class TicTacToe {
     public static final int MAX_BOARD_POSITIONS = 9;
     public static final char X_MARKER = 'X';
@@ -25,22 +30,22 @@ public class TicTacToe {
 
     char[] board;
 
-    public TicTacToe(){
+    public TicTacToe() {
         userInput = new UserInput();
         userOutput = new UserOutput();
     }
 
-    private char[] initializeBoard(){
+    private char[] initializeBoard() {
         char[] board = new char[MAX_BOARD_POSITIONS];
 
-        for(int i = 0; i < board.length; i++){
+        for (int i = 0; i < board.length; i++) {
             board[i] = Character.forDigit(i, 10);
         }
 
         return board;
     }
 
-    public void run(){
+    public void run() {
         this.board = initializeBoard();
 
         userOutput.gameIntroduction();
@@ -49,20 +54,37 @@ public class TicTacToe {
         // 1. Keep playing while there are still options for the user or opponent
         // to select, i.e. not all the elements in the board are X_MARKER or O_MARKER.
 
-            // 2. Display the board
 
-            // 3. Ask the user to select an available position on the board.
-            // A valid position is one that's not already selected,
-            // i.e. not X_MARKER or O_MARKER
+        while (true) {
+            boolean positionsAvailable = false;
 
-            // 4. If the position is available, mark it on the board.
+            for (int i = 0; i < board.length; i++) {
+                if (board[i] != X_MARKER && board[i] != O_MARKER) {
+                    positionsAvailable = true;
+                    break;
+                }
+            }
 
-            // 5. Check if the player has won (see winningPosition arrays).
+            if (!positionsAvailable) {
+                break;
+            }
+            
+        }
 
-            // 6. If the player has won, print a congratulatory message and
-            // exit or ask to play another game.
+        // 2. Display the board
 
-            // 7. Repeat steps 2 to 6 for the opponent's turn
+        // 3. Ask the user to select an available position on the board.
+        // A valid position is one that's not already selected,
+        // i.e. not X_MARKER or O_MARKER
+
+        // 4. If the position is available, mark it on the board.
+
+        // 5. Check if the player has won (see winningPosition arrays).
+
+        // 6. If the player has won, print a congratulatory message and
+        // exit or ask to play another game.
+
+        // 7. Repeat steps 2 to 6 for the opponent's turn
 
 
         /*
