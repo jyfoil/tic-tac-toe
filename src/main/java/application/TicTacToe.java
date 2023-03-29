@@ -15,8 +15,7 @@ public class TicTacToe {
 
     /*
      * Winning positions for reference
-     */
-    int[] winningPosition0 = {0, 1, 2};    // top horizontal
+     */ int[] winningPosition0 = {0, 1, 2};    // top horizontal
     int[] winningPosition1 = {3, 4, 5};    // middle horizontal
     int[] winningPosition2 = {6, 7, 8};    // bottom horizontal
     int[] winningPosition3 = {0, 3, 6};    // left vertical
@@ -68,10 +67,20 @@ public class TicTacToe {
         return availablePositions;
     }
 
-    private void placePlayerMark(int position) {
-        if (board[position] != X_MARKER && board[position] != O_MARKER) {
-            board[position] = X_MARKER;
+    private void placeMark(int position, String markChoice) {
+        if (markChoice.equals("X")) {
+            if (board[position] != X_MARKER && board[position] != O_MARKER) {
+                board[position] = X_MARKER;
+            }
+        } else if (markChoice.equals("O")) {
+            if (board[position] != X_MARKER && board[position] != O_MARKER) {
+                board[position] = O_MARKER;
+            }
         }
+    }
+
+    private boolean isWinningPosition(int[] position, char marker) {
+        return board[position[0]] == marker && board[position[1]] == marker && board[position[2]] == marker;
     }
 
     private boolean hasPlayerWon() {
@@ -80,7 +89,7 @@ public class TicTacToe {
                 winningPosition3, winningPosition4, winningPosition5, winningPosition6, winningPosition7};
 
         for (int[] eachWinningPositionArr : allWinningPositions) {
-            if (board[eachWinningPositionArr[0]] == X_MARKER && board[eachWinningPositionArr[1]] == X_MARKER && board[eachWinningPositionArr[2]] == X_MARKER) {
+            if (isWinningPosition(eachWinningPositionArr, X_MARKER) || isWinningPosition(eachWinningPositionArr, O_MARKER)) {
                 return true;
             }
         }
@@ -90,6 +99,12 @@ public class TicTacToe {
 
     public void run() {
         this.board = initializeBoard();
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Do you want to be X or O");
+        String markChoice = input.nextLine();
+        System.out.println("");
+
 
         userOutput.gameIntroduction();
         userOutput.displayBoard(board);
@@ -97,22 +112,16 @@ public class TicTacToe {
         // 1. Keep playing while there are still options for the user or opponent
         // to select, i.e. not all the elements in the board are X_MARKER or O_MARKER.
 
+        while (hasAvailablePositions()) {
 
-        while (true) {
-
-            if (!hasAvailablePositions()) {
-                break;
-            }
-
-            Scanner input = new Scanner(System.in);
             System.out.println("Select an available position of the board: ");
 
             List<String> openSpaces = availablePositions();
 
             System.out.println("The available positions are " + String.join(", ", openSpaces));
-
             int position = Integer.parseInt(input.nextLine());
-            placePlayerMark(position);
+
+            placeMark(position, markChoice);
 
             userOutput.displayBoard(board);
 
