@@ -6,6 +6,7 @@ import ui.UserOutput;
 import javax.management.openmbean.OpenMBeanAttributeInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -67,14 +68,26 @@ public class TicTacToe {
         return availablePositions;
     }
 
-    private void placeMark(int position, String markChoice) {
-        if (markChoice.equals("X")) {
+    private void playerMark(int position, String playerChoice) {
+        if (playerChoice.equals("X")) {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = X_MARKER;
             }
-        } else if (markChoice.equals("O")) {
+        } else if (playerChoice.equals("O")) {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = O_MARKER;
+            }
+        }
+    }
+
+    private void computerMark(int position, String playerChoice) {
+        if (playerChoice.equals("X")) {
+            if (board[position] != X_MARKER && board[position] != O_MARKER) {
+                board[position] = O_MARKER;
+            }
+        } else if (playerChoice.equals("O")) {
+            if (board[position] != X_MARKER && board[position] != O_MARKER) {
+                board[position] = X_MARKER;
             }
         }
     }
@@ -84,12 +97,12 @@ public class TicTacToe {
     }
 
     private boolean hasPlayerWon() {
-
         int[][] allWinningPositions = new int[][]{winningPosition0, winningPosition1, winningPosition2,
                 winningPosition3, winningPosition4, winningPosition5, winningPosition6, winningPosition7};
 
         for (int[] eachWinningPositionArr : allWinningPositions) {
-            if (isWinningPosition(eachWinningPositionArr, X_MARKER) || isWinningPosition(eachWinningPositionArr, O_MARKER)) {
+            if (isWinningPosition(eachWinningPositionArr, X_MARKER) || isWinningPosition(eachWinningPositionArr,
+                    O_MARKER)) {
                 return true;
             }
         }
@@ -101,27 +114,27 @@ public class TicTacToe {
         this.board = initializeBoard();
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Do you want to be X or O");
-        String markChoice = input.nextLine();
-        System.out.println("");
+        String playerChoice = userInput.getPlayerSymbolChoice();
 
-
+        System.out.println();
         userOutput.gameIntroduction();
         userOutput.displayBoard(board);
 
-        // 1. Keep playing while there are still options for the user or opponent
-        // to select, i.e. not all the elements in the board are X_MARKER or O_MARKER.
 
         while (hasAvailablePositions()) {
 
-            System.out.println("Select an available position of the board: ");
-
+            System.out.println();
+            System.out.println("Select an available position on the board: ");
             List<String> openSpaces = availablePositions();
 
             System.out.println("The available positions are " + String.join(", ", openSpaces));
-            int position = Integer.parseInt(input.nextLine());
 
-            placeMark(position, markChoice);
+            int position = Integer.parseInt(input.nextLine());
+            playerMark(position, playerChoice);
+
+            Random random = new Random();
+            int randomPosition = random.nextInt(9);
+            computerMark(randomPosition, playerChoice);
 
             userOutput.displayBoard(board);
 
@@ -132,6 +145,9 @@ public class TicTacToe {
             }
 
         }
+
+        // 1. Keep playing while there are still options for the user or opponent
+        // to select, i.e. not all the elements in the board are X_MARKER or O_MARKER.
 
         // 2. Display the board
 
