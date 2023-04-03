@@ -133,7 +133,8 @@ public class TicTacToe {
             playerMark(position, playerChoice);
 
             Random random = new Random();
-            int randomPosition = random.nextInt(9);
+            int choice = random.nextInt(9);
+            int randomPosition = Integer.parseInt(openSpaces.get(choice));
             computerMark(randomPosition, playerChoice);
 
             userOutput.displayBoard(board);

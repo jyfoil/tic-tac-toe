@@ -1,12 +1,8 @@
 package ui;
 
 import exceptions.InvalidSymbolException;
-
 import java.util.Scanner;
 
-/*
- * All code getting input from the user goes here
- */
 public class UserInput {
 
     private static Scanner scanner = new Scanner(System.in);
