@@ -2,13 +2,13 @@ package ui;
 
 public class UserOutput {
 
-    public void gameIntroduction(){
+    public void gameIntroduction(String playerChoice){
         String gameName = ConsoleColors.BLUE_BRIGHT + "Tic-" +
                 ConsoleColors.GREEN_BRIGHT + "Tac-" +
                 ConsoleColors.PURPLE_BRIGHT + "Toe" +
                 ConsoleColors.RESET;
         System.out.println("*** Welcome to " + gameName + " ***");
-        System.out.println("Get a line or diagonal of three Xs to win!");
+        System.out.println("Get a line or diagonal of three " + playerChoice + " to win!");
     }
 
     public void displayBoard(char[] board){

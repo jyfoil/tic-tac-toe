@@ -117,12 +117,14 @@ public class TicTacToe {
         String playerChoice = userInput.getPlayerSymbolChoice();
 
         System.out.println();
-        userOutput.gameIntroduction();
+        userOutput.gameIntroduction(playerChoice);
         userOutput.displayBoard(board);
 
 
         while (hasAvailablePositions()) {
 
+            // TODO There is a exception here when selecting something out of the available positions
+            // TODO Extract this to a method in UserInput
             System.out.println();
             System.out.println("Select an available position on the board: ");
             List<String> openSpaces = availablePositions();

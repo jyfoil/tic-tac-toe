@@ -1,6 +1,8 @@
 package ui;
 
 import exceptions.InvalidSymbolException;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInput {
