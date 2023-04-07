@@ -2,7 +2,7 @@ package ui;
 
 public class UserOutput {
 
-    public void gameIntroduction(String playerChoice){
+    public void gameIntroduction(char playerChoice){
         String gameName = ConsoleColors.BLUE_BRIGHT + "Tic-" +
                 ConsoleColors.GREEN_BRIGHT + "Tac-" +
                 ConsoleColors.PURPLE_BRIGHT + "Toe" +

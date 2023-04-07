@@ -2,7 +2,6 @@ package ui;
 
 import exceptions.InvalidSymbolException;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class UserInput {
@@ -14,7 +13,7 @@ public class UserInput {
         return null;
     }
 
-    public String getPlayerSymbolChoice() {
+    public char getPlayerSymbolChoice() {
 
         System.out.print("Do you want to be X or O: ");
         String playerChoice = scanner.nextLine().toUpperCase();
@@ -30,7 +29,7 @@ public class UserInput {
             }
         }
 
-        return playerChoice;
+        return playerChoice.charAt(0);
     }
 
 }

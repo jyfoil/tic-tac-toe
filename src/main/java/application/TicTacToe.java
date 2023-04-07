@@ -68,24 +68,24 @@ public class TicTacToe {
         return availablePositions;
     }
 
-    private void playerMark(int position, String playerChoice) {
-        if (playerChoice.equals("X")) {
+    private void playerMark(int position, char playerChoice) {
+        if (playerChoice == 'X') {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = X_MARKER;
             }
-        } else if (playerChoice.equals("O")) {
+        } else if (playerChoice == 'O') {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = O_MARKER;
             }
         }
     }
 
-    private void computerMark(int position, String playerChoice) {
-        if (playerChoice.equals("X")) {
+    private void computerMark(int position, char computerChoice) {
+        if (computerChoice == 'O') {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = O_MARKER;
             }
-        } else if (playerChoice.equals("O")) {
+        } else if (computerChoice == 'X') {
             if (board[position] != X_MARKER && board[position] != O_MARKER) {
                 board[position] = X_MARKER;
             }
@@ -96,28 +96,32 @@ public class TicTacToe {
         return board[position[0]] == marker && board[position[1]] == marker && board[position[2]] == marker;
     }
 
-    private boolean hasPlayerWon() {
+    private String decideWinner(char playerSymbol, char computerSymbol) {
         int[][] allWinningPositions = new int[][]{winningPosition0, winningPosition1, winningPosition2,
                 winningPosition3, winningPosition4, winningPosition5, winningPosition6, winningPosition7};
 
+
         for (int[] eachWinningPositionArr : allWinningPositions) {
-            if (isWinningPosition(eachWinningPositionArr, X_MARKER) || isWinningPosition(eachWinningPositionArr,
-                    O_MARKER)) {
-                return true;
+            if (isWinningPosition(eachWinningPositionArr, playerSymbol)) {
+                return "Player";
+            } else if (isWinningPosition(eachWinningPositionArr, computerSymbol)) {
+                return "Computer";
             }
         }
 
-        return false;
+        return "";
     }
 
     public void run() {
         this.board = initializeBoard();
         Scanner input = new Scanner(System.in);
 
-        String playerChoice = userInput.getPlayerSymbolChoice();
+        char playerSymbol = userInput.getPlayerSymbolChoice();
+        char computerSymbol = (playerSymbol == 'X') ? 'O' : 'X';
+
 
         System.out.println();
-        userOutput.gameIntroduction(playerChoice);
+        userOutput.gameIntroduction(playerSymbol);
         userOutput.displayBoard(board);
 
 
@@ -128,26 +132,41 @@ public class TicTacToe {
             System.out.println();
             System.out.println("Select an available position on the board: ");
             List<String> openSpaces = availablePositions();
+            System.out.println("The available position(s) are " + String.join(", ", openSpaces));
 
-            System.out.println("The available positions are " + String.join(", ", openSpaces));
+            // TODO: OutOfBounds exception fix
+            // TODO: Skipping turn if entering already occupied position
+            int playerPosition = Integer.parseInt(input.nextLine());
+            playerMark(playerPosition, playerSymbol);
 
-            int position = Integer.parseInt(input.nextLine());
-            playerMark(position, playerChoice);
+            openSpaces = availablePositions();
 
             Random random = new Random();
-            int choice = random.nextInt(9);
-            int randomPosition = Integer.parseInt(openSpaces.get(choice));
-            computerMark(randomPosition, playerChoice);
+            if (openSpaces.size() > 0) {
+                int choice = random.nextInt(openSpaces.size());
+                int computerPosition = Integer.parseInt(openSpaces.get(choice));
+                computerMark(computerPosition, computerSymbol);
+            }
 
             userOutput.displayBoard(board);
 
-            if (hasPlayerWon()) {
+
+            boolean playerWin = decideWinner(playerSymbol, computerSymbol) == "Player";
+            boolean computerWin = decideWinner(playerSymbol, computerSymbol) == "Computer";
+
+            if (playerWin) {
                 System.out.println("Congratulations you have won the game of Tic Tac Toe!");
-                System.out.println("Thanks for playing");
+                System.out.println("Thanks for playing!");
+                return;
+            } else if (computerWin) {
+                System.out.println("The Computer has won the game of Tic Tac Toe!");
+                System.out.println("Thanks for playing!");
                 return;
             }
 
+
         }
+
 
         // 1. Keep playing while there are still options for the user or opponent
         // to select, i.e. not all the elements in the board are X_MARKER or O_MARKER.
