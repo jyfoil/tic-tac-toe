@@ -15,12 +15,13 @@ public class UserInput {
         System.out.println();
         System.out.println("Select an available position on the board: ");
         System.out.println("The available position(s) are " + String.join(", ", openSpaces));
-        String playerPosition = scanner.nextLine(); // if this is string throws error down there
+        String playerPosition = scanner.nextLine();
 
         while (!openSpaces.contains(playerPosition)) {
 
-            int playerPositionToInt = Integer.parseInt(playerPosition); // Can't convert a string into integer
             try {
+                int playerPositionToInt = Integer.parseInt(playerPosition);
+
                 if (playerPositionToInt > openSpaces.size() - 1 || playerPositionToInt < 0) {
                     throw new InvalidChoiceException("That choice is not part of the available positions.");
                 } else if (!openSpaces.contains(playerPositionToInt)) {
