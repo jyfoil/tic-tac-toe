@@ -1,20 +1,15 @@
-# Tic-Tac-Toe
+# Tic Tac Toe Game
 
-Classic game of Tic-Tac-Toe. 
+This is a command-line implementation of the classic game of Tic Tac Toe. The game is played on a 3x3 grid where players take turns placing their markers ('X' or 'O') on the board. The first player to get three in a row (horizontally, vertically, or diagonally) wins the game.
 
-## Getting Started
+## Features
 
-Run the main() method from the TicTacToeCLI class, and it should look like this:
+- The game can be played by one player against the computer.
+- The user can select their marker ('X' or 'O') at the beginning of the game.
+- The game will display the current state of the board after each turn.
+- The game will check for a winner after each turn and end the game if there is a winner.
+- The game will end in a tie if there are no more available positions on the board.
 
-```
-*** Welcome to Tic-Tac-Toe ***
-Get a line or diagonal of three Xs to win!
-  0  |  1  |  2
------+-----+-----
-  3  |  4  |  5
------+-----+-----
-  6  |  7  |  8
-```
+## How to Run
 
-* Instructions for completing the game are in the TicTacToe class in the application package.
-* Look for the numbered comments.
+https://replit.com/@jyfoil/tic-tac-toe?v=1
